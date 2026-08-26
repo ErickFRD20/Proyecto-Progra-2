@@ -8,6 +8,8 @@ package exceptions;
  *
  * @author erick
  */
-public class FechaInvalida {
-    
+public class fechaInvalida extends Exception {
+    public fechaInvalida(String mensaje){
+        super(mensaje);
+    }
 }
