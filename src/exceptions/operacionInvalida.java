@@ -8,6 +8,8 @@ package exceptions;
  *
  * @author erick
  */
-public class OperacionInvalida {
-    
+public class operacionInvalida extends Exception{
+    public operacionInvalida(String mensaje){
+        super(mensaje);
+    }
 }
