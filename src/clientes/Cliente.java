@@ -3,11 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package clientes;
-
+import java.time.LocalDate;
+import java.time.Period;
+import personas.Persona;
 /**
  *
  * @author erick
  */
-public class Cliente {
+public class Cliente extends Persona{
+    private LocalDate fechaNacimiento;
+    private String correo;
     
+    public Cliente(String id, String nombre, String telefono, LocalDate fechaNacimiento, String correo){
+        super(id, nombre, telefono);
+        this.fechaNacimiento = fechaNacimiento;
+        this.correo = correo;
+    }
+
+    public LocalDate getfechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    
+    public int calcularEdad(){
+       return Period.between(fechaNacimiento, LocalDate.now()).getYears();
+    }
 }
