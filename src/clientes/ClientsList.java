@@ -42,6 +42,15 @@ public class ClientsList {
         return false;
     }
     
+    public boolean eliminarCliente(String id){
+        Cliente cliente = buscarId(id);
+        if(cliente != null){
+            clientes.remove(cliente);
+            return true;
+        }
+        return false;
+    }
+    
     public ArrayList<Cliente> getClientes(){
         return clientes;
     }
