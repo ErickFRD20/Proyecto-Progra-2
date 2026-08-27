@@ -31,7 +31,17 @@ public class ClientsList {
         clientes.add(cliente);
     }
     
-
+    public boolean actualizarCliente(String id, String nombre, String telefono, String correo){
+        Cliente cliente = buscarId(id);
+        if (cliente != null){
+            cliente.setNombre(nombre);
+            cliente.setTelefono(telefono);
+            cliente.setCorreo(correo);
+            return true;
+        }
+        return false;
+    }
+    
     public ArrayList<Cliente> getClientes(){
         return clientes;
     }
