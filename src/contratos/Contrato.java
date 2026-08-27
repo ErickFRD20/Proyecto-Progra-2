@@ -7,7 +7,6 @@ package contratos;
 import clientes.Cliente;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 /**
  *
  * @author mr117
