@@ -47,6 +47,37 @@ public class ControladorEmpleados {
             );
         }
     }
+       public Empleado buscarEmpleado(String identificacion) {
+        return listaEmpleados.buscar(identificacion);
+    }
+
+    public boolean actualizarEmpleado(String identificacion,
+            String nombre, String telefono, puestoEmpleado puesto) {
+
+        validarDatos(identificacion, nombre, telefono, puesto);
+
+        Empleado empleado =
+                listaEmpleados.buscar(identificacion);
+
+        if (empleado == null) {
+            return false;
+        }
+
+        empleado.setNombre(nombre);
+        empleado.setTelefono(telefono);
+        empleado.cambiarPuesto(puesto);
+
+        return true;
+    }
+
+    public boolean eliminarEmpleado(String identificacion) {
+        return listaEmpleados.eliminar(identificacion);
+    }
+
+    public ArrayList<Empleado> listarEmpleados() {
+        return listaEmpleados.listar();
+    }
 }
     
+//queda pendiente revisar mañana
 
