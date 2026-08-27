@@ -8,6 +8,11 @@ package empleados;
  *
  * @author josed
  */
-public class puestoEmpleado {
+public enum puestoEmpleado {
+    ADMINISTRADOR,
+    RECEPCIONISTA,
+    ENCARGADO_BODEGA,
+    MANTENIMIENTO,
+    OPERARIO_CARGA
     
 }
