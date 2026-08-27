@@ -5,8 +5,8 @@
 package empleados;
 
 import interfaces.KeyDynamicsLists;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 /**
  *
  * @author josed
@@ -54,7 +54,7 @@ public class EmpleadosList
         return true;
     }
      @Override
-     public iterator getAll(){
+     public Iterator getAll(){
          return empleados.values().iterator();
      }
      
