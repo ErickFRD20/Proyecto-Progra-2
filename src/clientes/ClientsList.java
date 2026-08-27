@@ -5,6 +5,8 @@
 package clientes;
 import java.util.ArrayList;
 import exceptions.registroDuplicado;
+import exceptions.fechaInvalida;
+import java.time.LocalDate;
 /**
  *
  * @author erick
@@ -24,13 +26,17 @@ public class ClientsList {
     }
     
     public void agregarCliente(Cliente cliente)
-            throws registroDuplicado{
+            throws registroDuplicado, fechaInvalida{
         if(buscarId(cliente.getId()) != null){
             throw new registroDuplicado("Ya existe un cliente con ese id");
+        }
+        if(cliente.getfechaNacimiento() == null || cliente.getfechaNacimiento().isAfter(LocalDate.now())){
+            throw new fechaInvalida("La fecha no es valida");
         }
         clientes.add(cliente);
     }
     
+   
     public boolean actualizarCliente(String id, String nombre, String telefono, String correo){
         Cliente cliente = buscarId(id);
         if (cliente != null){
