@@ -79,7 +79,7 @@ public class Contrato {
         
         this.subtotal = 0;
         this.impuestos = 0;
-        this.total = o;
+        this.total = 0;
     }
 
     public void setFechaInicio(LocalDate fechaInicio) {
@@ -106,7 +106,7 @@ public class Contrato {
         
     }
     public void activar(){
-        if (estado == EstadoContrato.PENDINTE){
+        if (estado == EstadoContrato.PENDIENTE){
             estado = EstadoContrato.ACTIVO;
         }
     }
