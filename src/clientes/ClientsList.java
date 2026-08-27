@@ -4,6 +4,7 @@
  */
 package clientes;
 import java.util.ArrayList;
+import exceptions.registroDuplicado;
 /**
  *
  * @author erick
@@ -21,6 +22,16 @@ public class ClientsList {
         }
         return null;
     }
+    
+    public void agregarCliente(Cliente cliente)
+            throws registroDuplicado{
+        if(buscarId(cliente.getId()) != null){
+            throw new registroDuplicado("Ya existe un id con ese cliente");
+        }
+        clientes.add(cliente);
+    }
+    
+
     public ArrayList<Cliente> getClientes(){
         return clientes;
     }

@@ -8,6 +8,8 @@ package exceptions;
  *
  * @author erick
  */
-public class RegistroDuplicado {
-    
+public class registroDuplicado extends Exception{
+    public registroDuplicado(String mensaje){
+        super(mensaje);
+    }
 }
