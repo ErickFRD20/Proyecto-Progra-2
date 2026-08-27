@@ -4,20 +4,24 @@
  */
 package empleados;
 
+import interfaces.KeyDynamicsLists;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
  *
  * @author josed
  */
-public class EmpleadosList {
+public class EmpleadosList 
+        implements KeyDynamicsLists<Empleado, String> {
+
     private HashMap<String, Empleado> empleados;
 
     public EmpleadosList() {
         empleados = new HashMap<>();
     }
 
-    public boolean agregar(Empleado empleado) {
+ @Override
+    public boolean add(Empleado empleado) {
 
         if (empleados.containsKey(empleado.getIdentificacion())) {
             return false;
@@ -30,14 +34,17 @@ public class EmpleadosList {
 
         return true;
     }
+    
+    @Override
 
-    public Empleado buscar(String identificacion) {
+    public Empleado get(String identificacion) {
         return empleados.get(identificacion);
     }
+    
+    @Override
+     public boolean remove(String identificacion) {
 
-    public boolean eliminar(String identificacion) {
-
-        Empleado empleado = buscar(identificacion);
+        Empleado empleado = get(identificacion);
 
         if (empleado == null) {
             return false;
@@ -46,21 +53,24 @@ public class EmpleadosList {
         empleados.remove(identificacion);
         return true;
     }
+     @Override
+     public iterator getAll(){
+         return empleados.values().iterator();
+     }
+     
+     @Override
+     public int size(){
+         return empleados.size();
+         
+     }
+     
+     @Override
+     public boolean isEmpty(){
+         return empleados.isEmpty();
+     }
 
-    public ArrayList<Empleado> listar() {
-
-        ArrayList<Empleado> lista = new ArrayList<>();
-
-        for (Empleado empleado : empleados.values()) {
-            lista.add(empleado);
-        }
-
-        return lista;
-    }
-
-    public int cantidad() {
-        return empleados.size();
-    }
+  
 }
+
     
 
