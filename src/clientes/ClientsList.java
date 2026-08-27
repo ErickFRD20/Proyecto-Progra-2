@@ -26,7 +26,7 @@ public class ClientsList {
     public void agregarCliente(Cliente cliente)
             throws registroDuplicado{
         if(buscarId(cliente.getId()) != null){
-            throw new registroDuplicado("Ya existe un id con ese cliente");
+            throw new registroDuplicado("Ya existe un cliente con ese id");
         }
         clientes.add(cliente);
     }
