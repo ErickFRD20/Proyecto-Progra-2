@@ -20,7 +20,20 @@ public class ControladorContrato {
     public void agregarContrato(Contrato contrato){
         contratos.agregar(contrato);
     }
+    public void eliminarContrato(Contrato contrato){
+        contratos.eliminar(contrato);
+    }
+    
     public Contrato buscarContrato(int numero){
         return contratos.buscarPorNumero(numero);
     } 
+    public void activarContrato(Contrato contrato){
+        contrato.activar();
+    }
+    public void cancelarContrato(Contrato contrato) {
+        contrato.cancelar();
+    }
+    public void finalizarContrato(Contrato contrato){
+        contrato.finalizar();
+    }
 }
