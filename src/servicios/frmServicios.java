@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author josed
  */
-public class frmServicios extends javax.swing.JInternalFrame  implements iView<servicioExtra> {
+public class frmServicios extends javax.swing.JFrame  implements iView<servicioExtra> {
     private ControladorServicios controlador;
 
 
@@ -77,10 +77,6 @@ public class frmServicios extends javax.swing.JInternalFrame  implements iView<s
         scrServicios = new javax.swing.JScrollPane();
         tblServicios = new javax.swing.JTable();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Servicios adicionales");
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N

@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author josed
  */
-public class FrmEmpleados extends javax.swing.JInternalFrame implements iView<Empleado> {
+public class FrmEmpleados extends javax.swing.JFrame implements iView<Empleado> {
     
     private ControladorEmpleados controlador;
     
@@ -141,11 +141,9 @@ public void showMessage(String message) {
         scrEmpleados = new javax.swing.JScrollPane();
         tblEmpleados = new javax.swing.JTable();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Empleados");
+        setFocusable(false);
+        setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -302,8 +300,8 @@ public void showMessage(String message) {
                     .addComponent(btnListar)
                     .addComponent(btnLimpiar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addComponent(scrEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
