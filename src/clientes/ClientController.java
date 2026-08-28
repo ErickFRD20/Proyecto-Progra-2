@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import storagebox.StorageBox;
 import interfaces.iView;
+import contratos.Contrato;
+import contratos.EstadoContrato;
 /**
  *
  * @author erick
@@ -47,6 +49,14 @@ public class ClientController {
         if(listaClientes.buscarId(id) == null ){
             throw new operacionInvalida("No existe un cliente con ese id");
         }
+        for (Contrato contrato : StorageBox.getInstance().getContratos().getContratos()){
+        if (contrato.getCliente().getId().equals(id)
+                && (contrato.getEstado() == EstadoContrato.PENDIENTE || contrato.getEstado() == EstadoContrato.ACTIVO)){
+            throw new operacionInvalida(
+                    "No se puede eliminar porque tiene contratos pendientes"
+            );
+        }
+    } 
         return listaClientes.eliminarCliente(id);
     }
     
