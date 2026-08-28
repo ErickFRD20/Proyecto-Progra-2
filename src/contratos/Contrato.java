@@ -92,10 +92,38 @@ public class Contrato {
         servicios.remove(servicio);
         
     }
+    private int getCantidadPeriodos(){
+    int periodos = (fechaFinalizacion.getYear() - fechaInicio.getYear()) * 12;
+    periodos = periodos
+            + fechaFinalizacion.getMonthValue()
+            - fechaInicio.getMonthValue();
+    if (fechaFinalizacion.getDayOfMonth() > fechaInicio.getDayOfMonth()) {
+        periodos++;
+    }
+    if (periodos == 0) {
+        periodos = 1;
+    }
+    return periodos;
+}
 
     public void calcularCosto(){
+    int periodos = getCantidadPeriodos();
 
+    double costoEspacio = espacio.getPrecioMes() * periodos;
+
+    double costoServicios = 0;
+
+    for (int i = 0; i < servicios.size(); i++) {
+        costoServicios = costoServicios + servicios.get(i).getPrecio();
     }
+
+    total = costoEspacio + costoServicios;
+
+    subtotal = total / 1.13;
+
+    impuestos = total - subtotal;
+    }
+    
     public void activar(){
         if (estado == EstadoContrato.PENDIENTE){
             estado = EstadoContrato.ACTIVO;

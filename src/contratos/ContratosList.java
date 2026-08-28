@@ -29,6 +29,7 @@ public class ContratosList {
     if (!contratos.contains(contrato)){
         return false;
     }
+    
     contratos.remove(contrato);
     return true;
     }
