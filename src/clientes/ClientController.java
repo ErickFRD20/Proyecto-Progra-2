@@ -9,14 +9,18 @@ import exceptions.registroDuplicado;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import storagebox.StorageBox;
+import interfaces.iView;
 /**
  *
  * @author erick
  */
 public class ClientController {
     private ClientsList listaClientes;
-    public ClientController(){
+    private iView<Cliente> vista;
+    
+    public ClientController(iView<Cliente> vista){
         listaClientes = StorageBox.getInstance().getCliente();
+        this.vista = vista;
     }
     
     public void agregarCliente(String id, String nombre, String telefono, LocalDate fechaNacimiento, String correo)

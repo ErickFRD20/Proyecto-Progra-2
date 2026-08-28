@@ -10,20 +10,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
+import interfaces.iView;
 /**
  *
  * @author erick
  */
-public class FrmCliente extends javax.swing.JInternalFrame {
+public class FrmCliente extends javax.swing.JFrame implements iView<Cliente> {
+
     private ClientController controller;
-    private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter formatoFecha
+            = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     /**
      * Creates new form FrmCliente
      */
     public FrmCliente() {
         initComponents();
-        controller = new ClientController();
+        controller = new ClientController(this);
     }
 
     /**
@@ -84,7 +88,6 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Edad");
 
-        txtEdad.setFocusable(false);
         txtEdad.addActionListener(this::txtEdadActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -106,6 +109,7 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
@@ -235,21 +239,104 @@ public class FrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        try {
+
+    LocalDate fechaNacimiento = LocalDate.parse(
+            txtFechaNacimiento.getText(),
+            formatoFecha
+    );
+
+    controller.agregarCliente(txtId.getText().trim(), txtNombre.getText().trim(), txtTelefono.getText().trim(), fechaNacimiento, txtCorreo.getText().trim());
+    showMessage("Cliente registrado correctamente");
+    clear();
+} catch (DateTimeParseException ex) {
+    showError("La fecha no tiene un formato valido");
+} catch (registroDuplicado | fechaInvalida | operacionInvalida ex){
+    showError(ex.getMessage());
+}
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+        if (controller.eliminarCliente(txtId.getText().trim())) {
+            showMessage("Cliente eliminado correctamente");
+            clear();
+        }
+    } catch (operacionInvalida ex) {
+        showError(ex.getMessage());
+    }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        Cliente cliente = controller.buscarCliente(txtId.getText().trim());
+    if (cliente != null) {
+        showData(cliente);
+    } else {
+        showError("No existe un cliente con ese id");
+    }
+    
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        try {
+
+        if (controller.actualizarCliente(txtId.getText().trim(), txtNombre.getText().trim(), txtTelefono.getText().trim(), txtCorreo.getText().trim())) {
+            showMessage("Cliente actualizado correctamente");
+            clear();
+        } else {
+            showError("No existe un cliente con ese id");
+        }
+    } catch (operacionInvalida ex) {
+        showError(ex.getMessage());
+    }
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+@Override
+public void clear() {
+    txtId.setValue(null);
+    txtNombre.setText("");
+    txtFechaNacimiento.setValue(null);
+    txtEdad.setText("");
+    txtTelefono.setValue(null);
+    txtCorreo.setText("");
+    txtId.setEditable(true);
+    txtFechaNacimiento.setEditable(true);
+}
+
+@Override
+public void showData(Cliente cliente){
+    if (cliente == null){
+        return;
+    }
+    txtId.setText(cliente.getId());
+    txtNombre.setText(cliente.getNombre());
+    txtFechaNacimiento.setText(
+            cliente.getfechaNacimiento().format(formatoFecha)
+    );
+    txtEdad.setText(
+            String.valueOf(cliente.calcularEdad())
+    );
+    txtTelefono.setText(cliente.getTelefono());
+    txtCorreo.setText(cliente.getCorreo());
+    txtId.setEditable(false);
+    txtFechaNacimiento.setEditable(false);
+}
+
+@Override
+public void showError(String error) {
+    JOptionPane.showMessageDialog(this, error, "Error" ,JOptionPane.ERROR_MESSAGE);
+}
+
+@Override
+public void showMessage(String message){
+    JOptionPane.showMessageDialog(this, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
