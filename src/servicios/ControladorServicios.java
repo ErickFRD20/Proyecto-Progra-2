@@ -14,46 +14,27 @@ import java.util.Iterator;
 public class ControladorServicios {
     private ServiciosList listaServicios;
     private iView<servicioExtra> view;
-    private int siguienteCodigo;
+    
     
     public ControladorServicios(iView<servicioExtra> view) {
         this.view = view;
         this.listaServicios = new ServiciosList();
-        this.siguienteCodigo = 1;
-    }
-    
-      public void agregarServicio(String nombre,
-            String descripcion, double precio) {
-
-        if (nombre.isEmpty()) {
-            view.showError("tiene que ingresar el nombre");
-            return;
-        }
-
-        if (descripcion.isEmpty()) {
-            view.showError("tiene que ingresar la descripcion");
-            return;
-        }
-
-        if (precio <= 0) {
-            view.showError("el precio debe ser mayor a 0");
-            return;
-        }
-
-        servicioExtra nuevoServicio =new servicioExtra(siguienteCodigo, nombre,descripcion,precio);
-
-        boolean agregado = listaServicios.add(nuevoServicio);
-        if (agregado == true) { view.showMessage("se agrego correctamente el servicio." );
-            siguienteCodigo = siguienteCodigo + 1;
-            view.clear();
-        } else {
-            view.showError( "no se agrego ningun servicio");
-        }
-      }
         
+    }
+    public void agregarServicio(int codigo, String nombre, String descripcion, double precio) {
+    servicioExtra nuevoServicio = new servicioExtra(codigo, nombre, descripcion, precio);
+    boolean agregado = listaServicios.add(nuevoServicio);
+    if (agregado == true) {
+        view.showMessage("se agrego correctamente");
+        view.clear();
+    }else{
+        view.showError("ya existe ese codigo");
+    }
+}
+    
         public void buscarServicio(int codigo) {
             servicioExtra servicioBuscado =listaServicios.get(codigo);
-        if (servicioBuscado == null) { view.showError( "no existe ningun servicio");
+        if (servicioBuscado == null) { view.showError( "no hay ningun servicio");
         } else {
             view.showData(servicioBuscado);
         }
@@ -61,10 +42,10 @@ public class ControladorServicios {
         public void actualizarServicio(int codigo,
             String descripcion, double precio) {
         servicioExtra servicioBuscado = listaServicios.get(codigo);
-        if (servicioBuscado == null) {view.showError("no existe ningun servicio");
+        if (servicioBuscado == null) {view.showError("no hay ningun servicio");
             return;
         }
-        if (descripcion.isEmpty()) {view.showError("tiene que poner la descripcion");
+        if (descripcion.isEmpty()) {view.showError("teiene que escribir una descripcion");
             return;
         }
         if (precio <= 0) {view.showError( "el precio tiene que ser mayor a 0");
