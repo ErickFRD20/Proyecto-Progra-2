@@ -26,18 +26,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="btnFinalizar" min="-2" pref="98" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnLimpiar" min="-2" pref="98" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="btnGuardar" min="-2" pref="98" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnCancelar" min="-2" pref="98" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btnFinalizar" min="-2" pref="98" max="-2" attributes="0"/>
+                  <Component id="btnGuardar" min="-2" pref="98" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="14" pref="276" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -57,21 +49,32 @@
                       </Group>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnActivar" min="-2" pref="98" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtNumero" max="32767" attributes="0"/>
-                              <Component id="txtCliente" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtEspacio" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtEstado" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtServicio" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtSubtotal" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtImpuestos" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtTotal" pref="168" max="32767" attributes="0"/>
-                              <Component id="btnAgregarServicio" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
-                              <Component id="txtFechaInicial" alignment="1" pref="168" max="32767" attributes="0"/>
-                              <Component id="txtFechaFinal" alignment="0" pref="168" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="txtNumero" max="32767" attributes="0"/>
+                                  <Component id="txtCliente" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtEspacio" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtEstado" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtServicio" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtSubtotal" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtImpuestos" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtTotal" pref="168" max="32767" attributes="0"/>
+                                  <Component id="btnAgregarServicio" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
+                                  <Component id="txtFechaInicial" alignment="1" pref="168" max="32767" attributes="0"/>
+                                  <Component id="txtFechaFinal" alignment="0" pref="168" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="btnBuscar" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnBuscar" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnLimpiar" min="-2" pref="98" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnActivar" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnCancelar" min="-2" pref="98" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -79,7 +82,7 @@
                       <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="80" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -458,6 +461,9 @@
         </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActivarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
@@ -472,6 +478,9 @@
         </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnFinalizar">
       <Properties>
@@ -486,6 +495,9 @@
         </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFinalizarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">
       <Properties>
@@ -500,6 +512,9 @@
         </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnLimpiar">
       <Properties>
@@ -514,6 +529,9 @@
         </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFechaInicial">
       <Properties>
