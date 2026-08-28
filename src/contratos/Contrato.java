@@ -8,6 +8,7 @@ import clientes.Cliente;
 import espacios.Espacio;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import servicios.servicioExtra;
 /**
  *
  * @author mr117
@@ -19,7 +20,7 @@ public class Contrato {
     private LocalDate fechaInicio;
     private LocalDate fechaFinalizacion;
     private EstadoContrato estado;
-    private ArrayList<ServicioAdicional> servicios;
+    private ArrayList<servicioExtra> servicios;
     
     private double subtotal;
     private double impuestos;
@@ -50,7 +51,7 @@ public class Contrato {
         return estado;
     }
 
-    public ArrayList<ServicioAdicional> getServicios() {
+    public ArrayList<servicioExtra> getServicios() {
         return servicios;
     }
 
@@ -83,16 +84,17 @@ public class Contrato {
         this.estado = estado;
     }
     
-    public void agregarServicio(ServicioAdicional servicio){
+    public void agregarServicio(servicioExtra servicio){
             servicios.add(servicio); 
     }
     
-    public void eliminarServicio(ServicioAdicional servicio){
+    public void eliminarServicio(servicioExtra servicio){
         servicios.remove(servicio);
         
     }
+
     public void calcularCosto(){
-        
+
     }
     public void activar(){
         if (estado == EstadoContrato.PENDIENTE){

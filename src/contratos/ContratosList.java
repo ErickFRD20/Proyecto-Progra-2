@@ -17,12 +17,20 @@ public class ContratosList {
         contratos = new ArrayList<>();      
     }
     
-    public void agregar(Contrato contrato){
-        contratos.add(contrato);
+    public boolean agregar(Contrato contrato){
+       if(contratos.contains(contrato)){
+           return false;
+       }
+       contratos.add(contrato);
+       return true;
     }
     
-    public void eliminar(Contrato contrato){
-        contratos.remove(contrato);
+    public boolean eliminar(Contrato contrato){
+    if (!contratos.contains(contrato)){
+        return false;
+    }
+    contratos.remove(contrato);
+    return true;
     }
     
     public ArrayList<Contrato> getContratos(){

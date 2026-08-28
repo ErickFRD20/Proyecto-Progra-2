@@ -8,14 +8,14 @@ package contratos;
  *
  * @author mr117
  */
-public class Contratos extends javax.swing.JFrame {
+public class frmContratos extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Contratos.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmContratos.class.getName());
 
     /**
      * Creates new form Contratos
      */
-    public Contratos() {
+    public frmContratos() {
         initComponents();
     }
 
@@ -338,7 +338,7 @@ public class Contratos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Contratos().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new frmContratos().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
