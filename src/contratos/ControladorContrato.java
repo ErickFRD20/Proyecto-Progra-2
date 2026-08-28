@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package contratos;
+import storagebox.StorageBox;
 
 /**
  *
@@ -12,7 +13,7 @@ public class ControladorContrato {
     private ContratosList contratos;
     
     public ControladorContrato(){
-        contratos = new ContratosList();
+        contratos = StorageBox.getInstance().getContratos();
     }
     public ContratosList getContratos(){
         return contratos;
