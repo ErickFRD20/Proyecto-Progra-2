@@ -7,6 +7,7 @@ package empleados;
 import interfaces.iView;
 import java.util.ArrayList;
 import java.util.Iterator;
+import storagebox.StorageBox;
 
 /**
  *
@@ -18,6 +19,7 @@ public class ControladorEmpleados {
     public ControladorEmpleados(iView<Empleado> view) {
         listaEmpleados = new EmpleadosList();
         this.view = view;
+        this.listaEmpleados = StorageBox.getInstance().getEmpleados();
     }
     
      private boolean validarDatos(String identificacion,String nombre, String telefono,puestoEmpleado puesto) {

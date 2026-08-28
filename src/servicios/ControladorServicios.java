@@ -6,6 +6,7 @@ package servicios;
 
 import interfaces.iView;
 import java.util.Iterator;
+import storagebox.StorageBox;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ControladorServicios {
     public ControladorServicios(iView<servicioExtra> view) {
         this.view = view;
         this.listaServicios = new ServiciosList();
+        this.listaServicios = StorageBox.getInstance().getServicios();
         
     }
     public void agregarServicio(int codigo, String nombre, String descripcion, double precio) {
