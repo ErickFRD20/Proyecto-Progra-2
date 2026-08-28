@@ -83,6 +83,11 @@ public class FrmCliente extends javax.swing.JFrame implements iView<Cliente> {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtFechaNacimiento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaNacimientoFocusLost(evt);
+            }
+        });
         txtFechaNacimiento.addActionListener(this::txtFechaNacimientoActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -156,7 +161,7 @@ public class FrmCliente extends javax.swing.JFrame implements iView<Cliente> {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
@@ -223,7 +228,13 @@ public class FrmCliente extends javax.swing.JFrame implements iView<Cliente> {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
-        // TODO add your handling code here:
+        try {
+        LocalDate fecha = LocalDate.parse(txtFechaNacimiento.getText(), formatoFecha);
+        Cliente cliente = new Cliente("", "", "", fecha, "");
+        txtEdad.setText(String.valueOf(cliente.calcularEdad()));
+    } catch (DateTimeParseException ex) {
+        txtEdad.setText("");
+    }
     }//GEN-LAST:event_txtFechaNacimientoActionPerformed
 
     private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
@@ -284,19 +295,20 @@ public class FrmCliente extends javax.swing.JFrame implements iView<Cliente> {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        try {
-
-        if (controller.actualizarCliente(txtId.getText().trim(), txtNombre.getText().trim(), txtTelefono.getText().trim(), txtCorreo.getText().trim())) {
-            showMessage("Cliente actualizado correctamente");
-            clear();
-        } else {
-            showError("No existe un cliente con ese id");
-        }
-    } catch (operacionInvalida ex) {
-        showError(ex.getMessage());
-    }
+        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void txtFechaNacimientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaNacimientoFocusLost
+        try {
+    LocalDate fecha = LocalDate.parse(txtFechaNacimiento.getText(), formatoFecha);
+    Cliente cliente = new Cliente("", "", "", fecha, "");
+    txtEdad.setText(String.valueOf(cliente.calcularEdad()));
+} catch (DateTimeParseException ex) {
+    txtEdad.setText("");
+}
+        
+    }//GEN-LAST:event_txtFechaNacimientoFocusLost
 @Override
 public void clear() {
     txtId.setValue(null);
