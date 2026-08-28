@@ -14,7 +14,7 @@ import servicios.servicioExtra;
  *
  * @author mr117
  */
-public class frmContratos extends javax.swing.JInternalFrame {
+public class frmContratos extends javax.swing.JFrame {
     private ControladorContrato controlador;
    
     /**
@@ -62,8 +62,6 @@ public class frmContratos extends javax.swing.JInternalFrame {
         btnLimpiar = new javax.swing.JButton();
         txtFechaInicial = new javax.swing.JTextField();
         txtFechaFinal = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
