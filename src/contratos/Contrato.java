@@ -8,6 +8,7 @@ import clientes.Cliente;
 import espacios.Espacio;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import servicios.servicioExtra;
 /**
  *
  * @author mr117
@@ -19,7 +20,7 @@ public class Contrato {
     private LocalDate fechaInicio;
     private LocalDate fechaFinalizacion;
     private EstadoContrato estado;
-    private ArrayList<ServicioAdicional> servicios;
+    private ArrayList<servicioExtra> servicios;
     
     private double subtotal;
     private double impuestos;
@@ -50,7 +51,7 @@ public class Contrato {
         return estado;
     }
 
-    public ArrayList<ServicioAdicional> getServicios() {
+    public ArrayList<servicioExtra> getServicios() {
         return servicios;
     }
 
@@ -83,17 +84,46 @@ public class Contrato {
         this.estado = estado;
     }
     
-    public void agregarServicio(ServicioAdicional servicio){
+    public void agregarServicio(servicioExtra servicio){
             servicios.add(servicio); 
     }
     
-    public void eliminarServicio(ServicioAdicional servicio){
+    public void eliminarServicio(servicioExtra servicio){
         servicios.remove(servicio);
         
     }
-    public void calcularCosto(){
-        
+    private int getCantidadPeriodos(){
+    int periodos = (fechaFinalizacion.getYear() - fechaInicio.getYear()) * 12;
+    periodos = periodos
+            + fechaFinalizacion.getMonthValue()
+            - fechaInicio.getMonthValue();
+    if (fechaFinalizacion.getDayOfMonth() > fechaInicio.getDayOfMonth()) {
+        periodos++;
     }
+    if (periodos == 0) {
+        periodos = 1;
+    }
+    return periodos;
+}
+
+    public void calcularCosto(){
+    int periodos = getCantidadPeriodos();
+
+    double costoEspacio = espacio.getPrecioMes() * periodos;
+
+    double costoServicios = 0;
+
+    for (int i = 0; i < servicios.size(); i++) {
+        costoServicios = costoServicios + servicios.get(i).getPrecio();
+    }
+
+    total = costoEspacio + costoServicios;
+
+    subtotal = total / 1.13;
+
+    impuestos = total - subtotal;
+    }
+    
     public void activar(){
         if (estado == EstadoContrato.PENDIENTE){
             estado = EstadoContrato.ACTIVO;

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package contratos;
+import storagebox.StorageBox;
 
 /**
  *
@@ -12,16 +13,24 @@ public class ControladorContrato {
     private ContratosList contratos;
     
     public ControladorContrato(){
-        contratos = new ContratosList();
+        contratos = StorageBox.getInstance().getContratos();
     }
     public ContratosList getContratos(){
         return contratos;
     }
-    public void agregarContrato(Contrato contrato){
-        contratos.agregar(contrato);
+    private void validarDatos(Contrato contrato){
+        if (contrato == null){
+            throw new IllegalArgumentException(
+            "No puede estar vacio");
+        }
     }
-    public void eliminarContrato(Contrato contrato){
-        contratos.eliminar(contrato);
+    
+    public boolean agregarContrato(Contrato contrato){
+        validarDatos(contrato);
+        return contratos.agregar(contrato);
+    }
+    public boolean eliminarContrato(Contrato contrato){
+       return contratos.eliminar(contrato);
     }
     
     public Contrato buscarContrato(int numero){
