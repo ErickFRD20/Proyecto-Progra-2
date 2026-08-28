@@ -8,6 +8,7 @@ import exceptions.operacionInvalida;
 import exceptions.registroDuplicado;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import storagebox.StorageBox;
 /**
  *
  * @author erick
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class ClientController {
     private ClientsList listaClientes;
     public ClientController(){
-        listaClientes = new ClientsList();
+        listaClientes = StorageBox.getInstance().getCliente();
     }
     
     public void agregarCliente(String id, String nombre, String telefono, LocalDate fechaNacimiento, String correo)

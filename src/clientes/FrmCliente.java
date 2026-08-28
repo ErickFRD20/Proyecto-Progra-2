@@ -3,18 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package clientes;
-
+import exceptions.fechaInvalida;
+import exceptions.operacionInvalida;
+import exceptions.registroDuplicado;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author erick
  */
 public class FrmCliente extends javax.swing.JInternalFrame {
+    private ClientController controller;
+    private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Creates new form FrmCliente
      */
     public FrmCliente() {
         initComponents();
+        controller = new ClientController();
     }
 
     /**
