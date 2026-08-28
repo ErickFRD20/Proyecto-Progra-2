@@ -3,12 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package contratos;
+import clientes.Cliente;
+import espacios.Espacio;
+import java.time.LocalDate;
+import storagebox.StorageBox;
+import javax.swing.JOptionPane;
+import servicios.servicioExtra;
 
 /**
  *
  * @author mr117
  */
 public class frmContratos extends javax.swing.JFrame {
+    private ControladorContrato controlador;
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmContratos.class.getName());
 
@@ -16,7 +24,8 @@ public class frmContratos extends javax.swing.JFrame {
      * Creates new form Contratos
      */
     public frmContratos() {
-        initComponents();
+            initComponents();
+    controlador = new ControladorContrato();
     }
 
     /**
@@ -47,8 +56,6 @@ public class frmContratos extends javax.swing.JFrame {
         txtSubtotal = new javax.swing.JTextField();
         txtImpuestos = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         btnAgregarServicio = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
@@ -56,6 +63,8 @@ public class frmContratos extends javax.swing.JFrame {
         btnFinalizar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        txtFechaInicial = new javax.swing.JTextField();
+        txtFechaFinal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,14 +149,6 @@ public class frmContratos extends javax.swing.JFrame {
         txtTotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jFormattedTextField1.setText("jFormattedTextField1");
-        jFormattedTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        jFormattedTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jFormattedTextField2.setText("jFormattedTextField1");
-        jFormattedTextField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
         btnAgregarServicio.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnAgregarServicio.setText("AGREGAR");
         btnAgregarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -157,31 +158,43 @@ public class frmContratos extends javax.swing.JFrame {
         btnGuardar.setText("GUARDAR");
         btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         btnActivar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnActivar.setText("ACTIVAR");
         btnActivar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnActivar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnActivar.addActionListener(this::btnActivarActionPerformed);
 
         btnCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         btnFinalizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnFinalizar.setText("FINALIZAR");
         btnFinalizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnFinalizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFinalizar.addActionListener(this::btnFinalizarActionPerformed);
 
         btnBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
         btnBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         btnLimpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnLimpiar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimpiar.addActionListener(this::btnLimpiarActionPerformed);
+
+        txtFechaInicial.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtFechaInicial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtFechaFinal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtFechaFinal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,15 +203,9 @@ public class frmContratos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                    .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 276, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -216,24 +223,32 @@ public class frmContratos extends javax.swing.JFrame {
                             .addComponent(lblNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtNumero)
-                                .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(txtEspacio, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(txtServicio, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(txtImpuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jFormattedTextField2)
-                                .addComponent(btnAgregarServicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtNumero)
+                                    .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtEspacio, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtServicio, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtImpuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(btnAgregarServicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFechaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtFechaFinal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(lblTitulo)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,13 +270,11 @@ public class frmContratos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)))
+                    .addComponent(txtFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,14 +307,45 @@ public class frmContratos extends javax.swing.JFrame {
                     .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarServicioActionPerformed
-        // TODO add your handling code here:
+        String numeroTexto = txtNumero.getText();
+        if(numeroTexto.equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese el numero del contrato");
+            return;
+        }
+        int numero = Integer.parseInt(numeroTexto);
+        Contrato contrato = controlador.buscarContrato(numero);
+        if (contrato == null){
+            JOptionPane.showMessageDialog(this, "El contrato no existe");
+            return;
+        }
+        String servicioTexto = txtServicio.getText();
+        if(servicioTexto.equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese el codigo del servicio");
+            return;
+        }
+        int codigo = Integer.parseInt(servicioTexto);
+        
+        servicioExtra servicio = StorageBox.getInstance()
+        .getServicios().get(codigo);
+        if (servicio == null){
+            JOptionPane.showMessageDialog(this, "El servicio no existe");
+            return;
+        }
+        contrato.agregarServicio(servicio);
+
+    contrato.calcularCosto();
+    txtSubtotal.setText(String.valueOf(contrato.getSubtotal()));
+    txtImpuestos.setText(String.valueOf(contrato.getImpuestos()));
+    txtTotal.setText(String.valueOf(contrato.getTotal()));
+    JOptionPane.showMessageDialog(this,
+        "Servicio agregado");
     }//GEN-LAST:event_btnAgregarServicioActionPerformed
 
     private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
@@ -316,6 +360,148 @@ public class frmContratos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtImpuestosActionPerformed
 
+    
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+         String clienteTexto = txtCliente.getText();
+    String espacioTexto = txtEspacio.getText();
+    String fechaInicioTexto = txtFechaInicial.getText();
+    String fechaFinalTexto = txtFechaFinal.getText();
+
+    if (clienteTexto.equals("") || espacioTexto.equals("")
+            || fechaInicioTexto.equals("") || fechaFinalTexto.equals("")) {
+
+        JOptionPane.showMessageDialog(this,
+                "Digite los datos.");
+
+        return;
+    }
+    Cliente cliente = StorageBox.getInstance().getCliente().buscarId(clienteTexto);
+    Espacio espacio = StorageBox.getInstance().getEspacio().get(espacioTexto);
+    if (cliente == null) {
+    JOptionPane.showMessageDialog(this,
+            "El cliente no existe");
+    return;
+    }
+
+    if (espacio == null) {
+    JOptionPane.showMessageDialog(this,
+            "El espacio no existe");
+    return;
+    }
+    LocalDate fechaInicio = LocalDate.parse(fechaInicioTexto);
+    LocalDate fechaFinal = LocalDate.parse(fechaFinalTexto);
+    
+    Contrato contrato = new Contrato(
+    cliente,espacio,fechaInicio,fechaFinal);
+    
+    if(controlador.agregarContrato(contrato)){
+        JOptionPane.showMessageDialog(this, "Contrato Guardado");
+    }else{
+        JOptionPane.showMessageDialog(this, "Nose pudo guardar el contrato");
+    }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String numeroTexto = txtNumero.getText();
+        if (numeroTexto.equals("")) {
+              JOptionPane.showMessageDialog(this,
+            "Ingrese el numero del contrato");
+    return;
+        }
+        int numero = Integer.parseInt(numeroTexto);
+    Contrato contrato = controlador.buscarContrato(numero);
+    
+    if (contrato == null) {
+    JOptionPane.showMessageDialog(this,
+            "El contrato no existe");
+    return;
+}
+    txtCliente.setText(contrato.getCliente().getId());
+    txtEspacio.setText(contrato.getEspacio().getNumero());
+    txtFechaInicial.setText(contrato.getFechaInicio().toString());
+    txtFechaFinal.setText(contrato.getFechaFinalizacion().toString());
+    txtEstado.setText(contrato.getEstado().toString());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        String numeroTexto = txtNumero.getText();
+        if (numeroTexto.equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese el numero del contrato");
+            return;
+        }
+        int numero = Integer.parseInt(numeroTexto);
+        Contrato contrato = controlador.buscarContrato(numero);
+        if (contrato == null) {
+        JOptionPane.showMessageDialog(this,
+            "El contrato no existe");
+    return;
+        }
+        controlador.activarContrato(contrato);
+        txtEstado.setText(contrato.getEstado().toString());
+        JOptionPane.showMessageDialog(this,
+        "Contrato activado.");
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+                                           
+    String numeroTexto = txtNumero.getText();
+    if (numeroTexto.equals("")) {
+        JOptionPane.showMessageDialog(this,
+                "Ingrese el numero del contrato");
+        return;
+    }
+    int numero = Integer.parseInt(numeroTexto);
+    Contrato contrato = controlador.buscarContrato(numero);
+    if (contrato == null) {
+        JOptionPane.showMessageDialog(this,
+                "El contrato no existe");
+        return;
+    }
+
+    controlador.cancelarContrato(contrato);
+    txtEstado.setText(contrato.getEstado().toString());
+    JOptionPane.showMessageDialog(this, "Contrato cancelado");
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        String numeroTexto = txtNumero.getText();
+         if (numeroTexto.equals("")) {
+        JOptionPane.showMessageDialog(this,
+                "Ingrese el numero del contrato");
+        return;
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+      int numero = Integer.parseInt(numeroTexto);
+    Contrato contrato = controlador.buscarContrato(numero);
+    if (contrato == null) {
+        JOptionPane.showMessageDialog(this,
+                "El contrato no existe");
+        return;
+    }
+        controlador.finalizarContrato(contrato);
+
+    txtEstado.setText(contrato.getEstado().toString());
+
+    JOptionPane.showMessageDialog(this,
+            "Contrato finalizado");
+}
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtNumero.setText("");
+        txtCliente.setText("");
+        txtEspacio.setText("");
+         txtFechaInicial.setText("");
+        txtFechaFinal.setText("");
+        txtServicio.setText("");
+        txtSubtotal.setText("");
+        txtImpuestos.setText("");
+        txtTotal.setText("");
+        txtEstado.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+   
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -349,8 +535,6 @@ public class frmContratos extends javax.swing.JFrame {
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblEspacio;
     private javax.swing.JLabel lblEstado;
@@ -365,6 +549,8 @@ public class frmContratos extends javax.swing.JFrame {
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtEspacio;
     private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtFechaFinal;
+    private javax.swing.JTextField txtFechaInicial;
     private javax.swing.JTextField txtImpuestos;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtServicio;

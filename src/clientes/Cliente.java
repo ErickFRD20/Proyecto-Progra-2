@@ -35,4 +35,15 @@ public class Cliente extends Persona{
     public int calcularEdad(){
        return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
+
+    public boolean correoValido() {
+    return correo != null && correo.matches("^[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "fechaNacimiento=" + fechaNacimiento + ", correo=" + correo + '}';
+    }
+    
+    
 }
