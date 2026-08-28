@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import exceptions.registroDuplicado;
 import exceptions.fechaInvalida;
 import java.time.LocalDate;
+import exceptions.operacionInvalida;
 /**
  *
  * @author erick
@@ -26,18 +27,32 @@ public class ClientsList {
     }
     
     public void agregarCliente(Cliente cliente)
-            throws registroDuplicado, fechaInvalida{
+            throws registroDuplicado, fechaInvalida, operacionInvalida{
+        
+        if(cliente.getId() == null || cliente.getId().isBlank() 
+                || cliente.getNombre() == null || cliente.getNombre().isBlank() 
+                || cliente.getTelefono() == null || cliente.getTelefono().isBlank() 
+                || cliente.getCorreo() == null || cliente.getCorreo().isBlank()){
+            throw new operacionInvalida("Debe completar los datos solicitados");
+        }
+        
         if(buscarId(cliente.getId()) != null){
             throw new registroDuplicado("Ya existe un cliente con ese id");
         }
         if(cliente.getfechaNacimiento() == null || cliente.getfechaNacimiento().isAfter(LocalDate.now())){
             throw new fechaInvalida("La fecha no es valida");
         }
+        
         clientes.add(cliente);
     }
-    
    
-    public boolean actualizarCliente(String id, String nombre, String telefono, String correo){
+    
+    public boolean actualizarCliente(String id, String nombre, String telefono, String correo)
+        throws operacionInvalida{
+        if(nombre == null || nombre.isBlank() || telefono == null || telefono.isBlank() || correo == null || correo.isBlank()){
+            throw new operacionInvalida("Debe completar los datos solicitados");
+        }
+        
         Cliente cliente = buscarId(id);
         if (cliente != null){
             cliente.setNombre(nombre);

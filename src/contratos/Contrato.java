@@ -5,6 +5,7 @@
 package contratos;
 
 import clientes.Cliente;
+import espacios.Espacio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 /**
@@ -19,6 +20,7 @@ public class Contrato {
     private LocalDate fechaFinalizacion;
     private EstadoContrato estado;
     private ArrayList<ServicioAdicional> servicios;
+    
     private double subtotal;
     private double impuestos;
     private double total;
@@ -68,19 +70,6 @@ public class Contrato {
         return contadorContratos;
     }
 
-    public Contrato(int numeroContrato, Cliente cliente, Espacio espacio, LocalDate fechaInicio, LocalDate fechaFinalizacion, EstadoContrato estado, ArrayList<ServicioAdicional> servicios, double subtotal, double impuestos, double total) {
-        this.numeroContrato = numeroContrato;
-        this.cliente = cliente;
-        this.espacio = espacio;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinalizacion = fechaFinalizacion;
-        this.estado = EstadoContrato.PENDIENTE;
-        this.servicios = new ArrayList<>();
-        
-        this.subtotal = 0;
-        this.impuestos = 0;
-        this.total = 0;
-    }
 
     public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
@@ -95,11 +84,11 @@ public class Contrato {
     }
     
     public void agregarServicio(ServicioAdicional servicio){
-            servicio.add(servicio); 
+            servicios.add(servicio); 
     }
     
     public void eliminarServicio(ServicioAdicional servicio){
-        servicio.remove(servicio);
+        servicios.remove(servicio);
         
     }
     public void calcularCosto(){
@@ -115,12 +104,35 @@ public class Contrato {
             estado = EstadoContrato.CANCELADO;
         }
     }
+    public void finalizar(){
+        if (estado == EstadoContrato.ACTIVO){
+            estado = EstadoContrato.FINALIZADO;
+        }
+    }
+
+    public Contrato(Cliente cliente, Espacio espacio, LocalDate fechaInicio, 
+            LocalDate fechaFinalizacion) {
+        this.numeroContrato = contadorContratos;
+        contadorContratos++;
+        this.cliente = cliente;
+        this.espacio = espacio;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinalizacion = fechaFinalizacion;
+        
+        this.servicios = new ArrayList<>();
+        this.estado = EstadoContrato.PENDIENTE;
+        this.subtotal = 0;
+        this.impuestos = 0;
+        this.total = 0;
+    }
+    
+    
 
     @Override
     public String toString() {
-        
-        return null;
-        
+          return "Contrato #" + numeroContrato
+            + "  Cliente: " + cliente.getNombre()
+            + "  Estado: " + estado;
     }
     
 }
